@@ -1,7 +1,10 @@
-**Лабораторна робота №3**
-**Docker**
+Операційні системи
 
-Виконав
+Лабораторна робота 4
+
+<br>
+
+Виконав 
 
 студент 3-го курсу
 
@@ -11,96 +14,127 @@
 
 Ужгородського Національного Університету
 
-**Андрух Микита Євгенович**
+Андрух Микита Євгенович
+<br>
+<br>
+<br>
+
+<h1 align="center">Terraform</h1>
+
+### Завдання
+Create terraform scenario for provisioning infrastructure on GCP (or AWS) cloud Requirement
+
+>1. Create one instance (image: ubuntu 20.04
+
+>2. Allow HTTP/HTTPS traffic on a NIC
+
+>3. Provision one SSH public key for created instance
+
+>4. Install Web Server (Apache HTTP Server / NGINX HTTP Server) via bash scenario
+
+
+<br>
+<h1 align="center">Хід роботи</h1>
+ 
+1. Поклав Terraform, зарегався на AWS і створив юзера
+![screenshot](1.jpg)
 
 <br>
 
-### Хід роботи
-1.  Зтягнути готовий образ wordpress з DockerHub та розгорнути за допомогою сайт із безкоштовною темою, використовуючи готовий docker-compose.yml.
-
-2.	Docker Compose
-
-3.	Cтворення HTML-сторінки та занесення її в Docker Image. Залити даний Docker Image на Docker Hub
-
-4.	Скачати Docker Image когось із групи і розвернути в себе контейнер з HTML сторінкою на порті 8086 ззовні
+>Створив файл `config.tf`, прописав провайдера і створив ресурс, який за допомогою Terraform буде розміщено та запущено на AWS.
+![screenshot](2.jpg)
 
 <br>
 
-### Завдання 1
 
-1.	Зтягнув готовий образ:
-
-![screenshot](/screens/Screenshot_1.jpg)
+>Команда ***terraform init***
+![screenshot](3.jpg)
 
 <br>
 
-2.	Створюємо та запускаємо контейнери 
-![screenshot](/screens/Screenshot_2.jpg)
-![screenshot](/screens/Screenshot_2_1.jpg)
+
+> Через ***terraform plan*** дізнаємося, що буде зроблено командою ***terraform apply***.
+![screenshot](4.jpg)
 
 <br>
 
-3.	Створюю профіль на wordpress, переходжу до http://localhost:8080/
-![screenshot](/screens/Screenshot_3.jpg)
+
+> Команда ***terraform apply*** (розміщення і запустити на AWS)
+![screenshot](5.jpg)
+![screenshot](6.jpg)
+![screenshot](7.jpg)
 
 <br>
 
-### **2) Docker Compose**.
-Завдання 2.
-Docker-compose – інструмент, який дозволяє створювати, запускати, видаляти контейнери для сервісів. Він представляється у вигляді конфігураційного файлу. При його написанні варто вказати, які образи треба зтягнути з хаба 
-
-На основі вже зтягнених образів створюються та запускаються контейнери. Завдяки Docker-compose.yml за допомогою всього лише двох команд можна запустити сайт.
-
-YML-конфігурацію легко зрозуміти, але при цьому в неї надто чутливий синтаксис, тому YML є досить складним для розробки
+2. Налаштував мережевий інтерфейс за допомогою ***aws_security_group***
+![screenshot](8.jpg)
 
 <br>
 
-### 3) Cтворення HTML-сторінки та занесення її в Docker Image. Залити даний Docker Image на Docker Hub.
+
+Результат
+![screenshot](9.jpg)
 
 <br>
 
-1.	Створюємо папку та файли
 
-![screenshot](/screens/Screenshot_4.jpg)
+***ssh-keygen -t rsa -b 2048*** генерує приватний і публічний SSH-ключ для ресурсу
+![screenshot](10.jpg)
 
-2.	Налаштовуємо дозволи
+<br>
+<br>
 
-![screenshot](/screens/Screenshot_5.jpg)
-
-3.	Стягуємо образ і вказуємо шлях, в який відбуватиметься копіювання
-
-![screenshot](/screens/Screenshot_6.jpg)
-
-4.	Складаємо образ
-
-![screenshot](/screens/Screenshot_7.jpg)
-
-5.	Створюємо та запускаємо контейнер
-
-![screenshot](/screens/Screenshot_8.jpg)
-
-6.	Результат
-
-![screenshot](/screens/Screenshot_9.jpg)
-
-7.	Логінимось на хабі та заливаємо
-
-![screenshot](/screens/Screenshot_10.jpg)
-
-![screenshot](/screens/Screenshot_11.jpg)
+Ключ для головного instance кидаємо в новостворений ресурс
+![screenshot](11.jpg)
 
 <br>
 
-### 4) Завдання 4
 
-1.	Стягую docker image від однокурсника Гобони В.М:
+У головному instance вказуємо щойно створений ключ.
+![screenshot](12.jpg) 
 
-![screenshot](/screens/Screenshot_12.jpg)
+<br>
 
-2.	Створив та запустив контейнер
 
-![screenshot](/screens/Screenshot_13.jpg)
+***chmod 400 key*** задає дозвіл файлу з приватним SSH-ключем.
+***ssh -i "key" ubuntu@ec2-18-157-84-18.eu-central-1.compute.amazonaws.com*** входить до віддаленої системи
+![screenshot](13.jpg)
 
-3.	Бачимо сторінку Гобони, перейшовши за http://localhost:8086
+<br>
 
-![screenshot](/screens/Screenshot_14.jpg)
+***sudo apt update***
+
+<br>
+
+***sudo apt upgrade***
+
+<br>
+
+
+***sudo apt install apache2***
+
+<br>
+
+
+***sudo ufw allow in "Apache Full"***
+
+<br>
+
+
+***sudo systemctl restart apache2***
+
+<br>
+
+
+Cтворюємо новий index.html і замінюємо шляхом /var/www/html/index.html
+***mv -i index.html /var/www/html/index.html***
+
+
+<br>
+
+Результат:
+
+<br>
+
+
+![screenshot](14.jpg)
