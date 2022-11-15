@@ -8,6 +8,16 @@ public class DemoController {
 
     @GetMapping("/")
     public String first() {
-        return "Я НЕ ЖИВИИИИИИИИИИИИИИИИИИИИЙ";
+        return "Hello from Spring Boot!";
+    }
+    
+    @GetMapping("/lab")
+    public String second() {
+        return "Lab 6 was successfully done!";
+    }
+    
+    @GetMapping("/x")
+    public String secondx() {
+        return "x!";
     }
 }
