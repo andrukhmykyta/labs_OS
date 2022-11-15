@@ -10,5 +10,9 @@ public class DemoController {
     public String first() {
         return "Я ЖИВИИИИИИИИИИИИИИИИИИИИЙ!";
     }
-
+    
+    @GetMapping("/lab")
+    public String second() {
+        return "петро сила!";
+    }
 }
