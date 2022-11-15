@@ -13,7 +13,7 @@ public class DemoController {
     
     @GetMapping("/lab")
     public String second() {
-        return "моставчук!";
+        return "що хочете!";
     }
     
 }
