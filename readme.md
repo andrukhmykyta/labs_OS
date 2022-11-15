@@ -1,6 +1,6 @@
 Операційні системи
 
-Лабораторна робота 4
+Лабораторна робота 5
 
 <br>
 
@@ -19,122 +19,89 @@
 <br>
 <br>
 
-<h1 align="center">Terraform</h1>
+<h1 align="center">Деплой проекту на AWS EC2</h1>
 
 ### Завдання
 Create terraform scenario for provisioning infrastructure on GCP (or AWS) cloud Requirement
 
->1. Create one instance (image: ubuntu 20.04
+>1. Зареєструватись на AWS. 
 
->2. Allow HTTP/HTTPS traffic on a NIC
+>2. Створити інстанс EC2
 
->3. Provision one SSH public key for created instance
-
->4. Install Web Server (Apache HTTP Server / NGINX HTTP Server) via bash scenario
-
+>3. Задеплоїти проект (може бути  html сторінка) і скинути посилання в звіт для можливості перегляду
 
 <br>
 <h1 align="center">Хід роботи</h1>
  
-1. Поклав Terraform, зарегався на AWS і створив юзера
+Система – Ubuntu
 ![screenshot](1.jpg)
 
 <br>
 
->Створив файл `config.tf`, прописав провайдера і створив ресурс, який за допомогою Terraform буде розміщено та запущено на AWS.
+Тип – дефолтний
 ![screenshot](2.jpg)
 
 <br>
 
 
->Команда ***terraform init***
+Створюю новий SSH-ключ ***shakhtar_key***
 ![screenshot](3.jpg)
 
 <br>
 
 
-> Через ***terraform plan*** дізнаємося, що буде зроблено командою ***terraform apply***.
+Встановив вхідний трафік на 80-ий порт.
 ![screenshot](4.jpg)
 
 <br>
 
 
-> Команда ***terraform apply*** (розміщення і запустити на AWS)
+Створив та запустив інстенс
 ![screenshot](5.jpg)
+
+Так виглядає SSH-клієнт та інструкція, за допомогою якої можна підключитися до віддаленої VM
 ![screenshot](6.jpg)
+
+Змінив дозвіл файлу з ключем на 400-й
 ![screenshot](7.jpg)
 
 <br>
 
-2. Налаштував мережевий інтерфейс за допомогою ***aws_security_group***
+Успішно підключився до віддаленої віртуальної машини за допомогою команди, що є в SSH-клієнті
 ![screenshot](8.jpg)
 
 <br>
 
 
-Результат
+Прописуємо наступні команди для оновлення системи і установки Apache-серверу:
+
+<br>
+
+sudo apt update
+
+<br>
+
+sudo apt upgrade
+
+<br>
+
+sudo apt install apache2
+
+<br>
+
 ![screenshot](9.jpg)
 
 <br>
 
 
-***ssh-keygen -t rsa -b 2048*** генерує приватний і публічний SSH-ключ для ресурсу
+Скинув файл ***index.html*** на віддалену VM
 ![screenshot](10.jpg)
 
 <br>
 <br>
 
-Ключ для головного instance кидаємо в новостворений ресурс
+Замінив файл за розташуванням нижче
 ![screenshot](11.jpg)
 
-<br>
-
-
-У головному instance вказуємо щойно створений ключ.
-![screenshot](12.jpg) 
-
-<br>
-
-
-***chmod 400 key*** задає дозвіл файлу з приватним SSH-ключем.
-***ssh -i "key" ubuntu@ec2-18-157-84-18.eu-central-1.compute.amazonaws.com*** входить до віддаленої системи
-![screenshot](13.jpg)
-
-<br>
-
-***sudo apt update***
-
-<br>
-
-***sudo apt upgrade***
-
-<br>
-
-
-***sudo apt install apache2***
-
-<br>
-
-
-***sudo ufw allow in "Apache Full"***
-
-<br>
-
-
-***sudo systemctl restart apache2***
-
-<br>
-
-
-Cтворюємо новий index.html і замінюємо шляхом /var/www/html/index.html
-***mv -i index.html /var/www/html/index.html***
-
-
-<br>
-
-Результат:
-
-<br>
-
-
-![screenshot](14.jpg)
+Як бачимо, результат – на лице
+![screenshot](12.jpg)
