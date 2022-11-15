@@ -8,11 +8,6 @@ public class DemoController {
 
     @GetMapping("/")
     public String first() {
-        return "Я ЖИВИИИИИИИИИИИИИИИИИИИИЙ!";
-    }
-    
-    @GetMapping("/lab")
-    public String second() {
-        return "петро сила!";
+        return "Я НЕ ЖИВИИИИИИИИИИИИИИИИИИИИЙ";
     }
 }
