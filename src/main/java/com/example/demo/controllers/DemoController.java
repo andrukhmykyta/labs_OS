@@ -8,12 +8,12 @@ public class DemoController {
 
     @GetMapping("/")
     public String first() {
-        return "Hello from Spring Boot!";
+        return "петро!";
     }
     
     @GetMapping("/lab")
     public String second() {
-        return "Lab 6 was successfully done!";
+        return "моставчук!";
     }
     
 }
